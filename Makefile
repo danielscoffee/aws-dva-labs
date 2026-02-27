@@ -22,7 +22,11 @@ endif
 PLAN_FILE = tfplan
 
 terraform-init:
+ifneq ("$(wildcard $(TERRAFORM_DIR))","")
+	$(TERRAFORM) init -migrate-state
+else
 	$(TERRAFORM) init
+endif
 	
 terraform-fmt:
 	$(TERRAFORM) fmt -recursive
