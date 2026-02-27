@@ -1,14 +1,28 @@
-TERRAFORM_DIR = ./terraform/.terraform/
-TERRAFORM = terraform -chdir=./terraform/
+TERRAFORM_DIR = ./terraform
+TERRAFORM = terraform -chdir=$(TERRAFORM_DIR)
 
-terraform-routine:
-ifneq ("$(wildcard $(TERRAFORM_DIR))","")
-	@$(TERRAFORM) plan
-else
-	@$(TERRAFORM) init
-	@$(TERRAFORM) plan
-endif
+PLAN_FILE = tfplan
 
-	@$(TERRAFORM) apply
+terraform-init:
+	$(TERRAFORM) init
+	
+terraform-fmt:
+	$(TERRAFORM) fmt -recursive
 
-.PHONY: terraform-routine
+terraform-validate:
+	$(TERRAFORM) validate
+
+terraform-plan: terraform-init
+	$(TERRAFORM) plan -out=$(PLAN_FILE)
+
+terraform-apply:
+	$(TERRAFORM) apply $(PLAN_FILE)
+
+terraform-destroy:
+	$(TERRAFORM) destroy
+
+
+terraform-routine: terraform-plan terraform-apply
+
+.PHONY: terraform-init terraform-fmt terraform-validate terraform-plan terraform-apply terraform-destroy terraform-routine
+

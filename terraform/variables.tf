@@ -1,11 +1,11 @@
 variable "github_org" {
   default = "danielscoffee"
-  type = string
+  type    = string
 }
 
 variable "github_repo" {
   default = "aws-dva-labs"
-  type = string
+  type    = string
 }
 
 variable "github_ref" {

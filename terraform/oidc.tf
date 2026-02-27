@@ -21,7 +21,6 @@ data "aws_iam_policy_document" "github_assume_role" {
       values   = ["sts.amazonaws.com"]
     }
 
-    # Trava em repo + ref (branch/tag)
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"

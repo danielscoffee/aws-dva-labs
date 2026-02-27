@@ -2,8 +2,8 @@
 
 *.tfstate
 *.tfstate.*
-*terraform.tfstate
-*terraform.tfstate.backup
+**/terraform.tfstate
+**/terraform.tfstate.backup
 
 crash.log
 crash.*.log
@@ -19,7 +19,7 @@ terraform.rc
 /bin/
 /build/
 /dist/
-
+*tfplan
 *.exe
 *.exe~
 *.dll
