@@ -19,15 +19,13 @@
 
 ## Domain 1 — Development with AWS Services
 
-> [!WARNING]
-> Need to pratice this module
 ### AWS Lambda
-- [x] Function lifecycle: cold start vs warm start
-- [x] Invocation types: synchronous, asynchronous, event source mapping
-- [x] Layers, environment variables, reserved concurrency
-- [x] Destinations (on success / on failure)
-- [x] Lambda with API Gateway (proxy integration)
-- [x] Limits: 15 min timeout, 10 GB memory, 250 MB deployment package (unzipped)
+- [ ] Function lifecycle: cold start vs warm start
+- [ ] Invocation types: synchronous, asynchronous, event source mapping
+- [ ] Layers, environment variables, reserved concurrency
+- [ ] Destinations (on success / on failure)
+- [ ] Lambda with API Gateway (proxy integration)
+- [ ] Limits: 15 min timeout, 10 GB memory, 250 MB deployment package (unzipped)
 
 ### API Gateway
 - [ ] REST API vs HTTP API vs WebSocket API
