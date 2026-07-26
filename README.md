@@ -8,7 +8,7 @@ See [`STUDY.md`](./STUDY.md) for the exam study guide this repo is built around.
 
 ## Repository layout
 
-```
+```text
 .
 ├── terraform/
 │   ├── env/
@@ -25,7 +25,7 @@ See [`STUDY.md`](./STUDY.md) for the exam study guide this repo is built around.
 │       └── 08-monitoring/    # CloudWatch + X-Ray
 ├── cdk/
 │   └── lambda-api/           # CDK re-implementation of lab 01 (L1/L2/L3 constructs)
-├── .github/workflows/        # GitHub Actions (OIDC → AWS)
+├── .github/workflows/        # Credential-free CI + manual OIDC deployment
 ├── Makefile                  # Terraform lifecycle wrapper
 ├── flake.nix                 # Nix dev shell (terraform, awscli, uv, python)
 ├── pyproject.toml            # uv workspace for Python lab tests
@@ -119,12 +119,19 @@ pattern) — against the equivalent raw Terraform in lab 01.
 
 ## CI
 
-[`.github/workflows/terraform.yml`](./.github/workflows/terraform.yml) runs
-`make terraform-routine` on pushes to `main`, authenticating to AWS via
-GitHub OIDC (no long-lived access keys). The trust role is declared in
-[`terraform/env/prod/oidc.tf`](./terraform/env/prod/oidc.tf).
+[`.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs credential-free
+checks on pull requests and pushes to `main`:
 
-> The workflow is currently commented out pending a working OIDC role ARN.
+- `terraform fmt -check` plus `terraform validate` for every Terraform root
+- Python 3.12 tests via `uv`
+- CDK synthesis on Node.js 20
+
+Deployment stays isolated in
+[`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) as a manual
+OIDC workflow. Its job remains skipped until `DEPLOY_ENABLED=true` and
+`AWS_ROLE_ARN` are set as repository variables. It also reads
+`TF_STATE_BUCKET`, `TF_STATE_KEY`, and `TF_LOCK_TABLE` repository variables. The trust role is declared in
+[`terraform/env/prod/oidc.tf`](./terraform/env/prod/oidc.tf).
 
 ## License
 

@@ -76,11 +76,11 @@ resource "aws_kinesis_firehose_delivery_stream" "to_s3" {
   }
 
   extended_s3_configuration {
-    role_arn           = aws_iam_role.firehose.arn
-    bucket_arn         = aws_s3_bucket.firehose_dest.arn
-    buffering_size     = 5    # MB
-    buffering_interval = 60   # seconds
-    prefix             = "raw/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+    role_arn            = aws_iam_role.firehose.arn
+    bucket_arn          = aws_s3_bucket.firehose_dest.arn
+    buffering_size      = 5  # MB
+    buffering_interval  = 60 # seconds
+    prefix              = "raw/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
     error_output_prefix = "errors/"
   }
 }

@@ -45,9 +45,9 @@ resource "aws_cognito_user_pool_client" "app" {
   ]
 
   # Token validity (exam: difference between ID / Access / Refresh tokens)
-  access_token_validity  = 60   # minutes
-  id_token_validity      = 60   # minutes
-  refresh_token_validity = 30   # days
+  access_token_validity  = 60 # minutes
+  id_token_validity      = 60 # minutes
+  refresh_token_validity = 30 # days
 
   token_validity_units {
     access_token  = "minutes"
@@ -76,9 +76,9 @@ resource "aws_iam_role" "authenticated" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect = "Allow"
+      Effect    = "Allow"
       Principal = { Federated = "cognito-identity.amazonaws.com" }
-      Action = "sts:AssumeRoleWithWebIdentity"
+      Action    = "sts:AssumeRoleWithWebIdentity"
       Condition = {
         StringEquals = {
           "cognito-identity.amazonaws.com:aud" = aws_cognito_identity_pool.main.id
